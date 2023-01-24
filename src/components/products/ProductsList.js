@@ -45,6 +45,7 @@ export const ProductsList = () => {
         }
         else {
             // for customers
+            setFilteredProducts(products)
         }
     }, [products])
 
@@ -59,12 +60,8 @@ export const ProductsList = () => {
                     <button onClick={() => navigate("/product/create")}>Create Product</button>
                 </>
                 : <>
-                    <button >Open Ticket</button>
-                    <button >All My Tickets</button>
                 </>
         }
-
-
 
         <h2>List of Products</h2>
         <article className="products">
