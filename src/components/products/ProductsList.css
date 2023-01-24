@@ -1,13 +1,33 @@
-/*
-.locations {
+
+.products {
     display: flex;
     flex-direction: column;
 }
 
-.location {
+.product {
     background-color: rgb(243, 230, 265);
     border: 1px dotted darkmagenta;
     padding: .7rem;
     margin: 0.5rem 0;
 }
-*/
+
+.productForm {
+    background-color: aquamarine;
+    border: 2px solid red;
+    width: 500px;
+    text-align: center;
+}
+.form-group {
+    margin: 10px 10px 10px 10px;
+    width: 400px;
+}
+
+.form-control {
+    width: 100px;
+    text-align: center;
+}
+
+fieldset {
+    text-align: center;
+    margin-left: 50px;
+}

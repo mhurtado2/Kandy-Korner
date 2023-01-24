@@ -1,7 +1,6 @@
 .navbar {
     display: flex;
-    flex-wrap: nowrap;
-    justify-content: left;
+    justify-content: space-between;
 }
 
 .navbar__item {
