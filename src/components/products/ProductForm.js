@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 
 export const ProductForm = () => {
@@ -6,10 +6,24 @@ export const ProductForm = () => {
         TODO: Add the correct default properties to the
         initial state object
     */
+const [productTypes, setProductTypes] = useState([])
+
+
+useEffect(
+    () => {
+        fetch(`http://localhost:8088/productTypes`)
+            .then((res) => res.json())
+            .then((productsArray) => {
+                setProductTypes(productsArray)
+            })// View the initial state of tickets
+    },
+    [] // When this array is empty, you are observing initial component state
+)
+
     const [product, update] = useState({
         name: "",
-        type: null,
-        price: null
+        type: "", //maybe change to strings
+        price: "" //maybe change to strings
     })
     /*
         TODO: Use the useNavigation() hook so you can redirect
@@ -71,7 +85,7 @@ export const ProductForm = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="type">Type:</label>
-                    <input type='number'
+                    <select
                     className="form-control"
                         value={product.productTypeId}
                         onChange={
@@ -80,7 +94,14 @@ export const ProductForm = () => {
                                 copy.productTypeId = event.target.value
                                 update(copy)
                             }
-                        } /> 
+                        }> 
+                        <option value="0">Select Option</option>
+                        {productTypes.map(
+                            (productType) => {
+                                return <option key={productType.id} value={productType.id}>{productType.productType}</option>
+                            }
+                        )}
+                        </select>
                 </div>
             </fieldset>
             <fieldset>
