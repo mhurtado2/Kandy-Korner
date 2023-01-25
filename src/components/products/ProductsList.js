@@ -2,10 +2,13 @@ import { useEffect, useState } from "react"
 import "./ProductsList.css"
 import { useNavigate } from "react-router-dom"
 
-export const ProductsList = ({ searchTermState }) => {
+
+
+export const ProductsList = ({searchTermState}) => {
     const [products, setProducts] = useState([])
     const [filteredProducts, setFilteredProducts] = useState([])
     const [topPriced, setTopPriced] = useState(false)
+    const [searched, setSearched] = useState([])
     const navigate = useNavigate()
 
     const localKandyUser = localStorage.getItem("kandy_user")
@@ -16,7 +19,7 @@ export const ProductsList = ({ searchTermState }) => {
         const searchedProducts = products.filter(product => {
             return product.name.toLowerCase().startsWith(searchTermState.toLowerCase())
         })
-        setFilteredProducts(searchedProducts)
+        setSearched(searchedProducts)
     },
         [ searchTermState ]
     )
@@ -71,20 +74,40 @@ export const ProductsList = ({ searchTermState }) => {
                 : <>
                 </>
         }
+                <header>What Candy Are You Looking For!</header>
+                <h2>List of Products</h2>
+                <article className="products">
+                    {
+                        searched.length !== 0
+                        ?
+                        searched.map((product) => {
+                            return <section className="product" key={product.id}>
+                                <header>Product: {product.name}</header>
+                                <footer>Price: ${product.price.toFixed(2)}</footer>           
+                            </section>
+                        })
+                        :
+                        
+                        filteredProducts.map((product) => {
+                            return <section className="product" key={product.id}>
+                                <header>Product: {product.name}</header>
+                                <footer>Price: ${product.price.toFixed(2)}</footer>           
+                                <header>Type: {product.productType.productType}</header>
+                            </section>
+                        })
+                    }
+                </article>
+                </>
 
-        <h2>List of Products</h2>
-        <article className="products">
-            {
-                filteredProducts.map((product) => {
-                    return <section className="product" key={product.id}>
-                        <header>Product: {product.name}</header>
-                        <header>Type: {product.productType.productType}</header>
-                        <footer>Price: ${product.price.toFixed(2)}</footer>
-                    </section>
-                })
-            }
-        </article>
-    </>
 }
 
-/* <button onClick={() => { setTopPriced(false) }}>Top Price</button> */
+
+// {
+//     filteredProducts.map((product) => {
+//         return <section className="product" key={product.id}>
+//             <header>Product: {product.name}</header>
+//             <footer>Price: ${product.price.toFixed(2)}</footer>           
+//             <header>Type: {product.productType.productType}</header>
+//         </section>
+//     })
+// }
